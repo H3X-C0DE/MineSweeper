@@ -1,0 +1,22 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./src/index.css" type="text/css" />
+    <title>MINESWEEPER</title>
+  </head>
+  <body>
+    <div id="box">
+      <h2>MINESWEEPER!</h2>
+      <div id="field"></div>
+      <div id="lost" style="display: none">
+        <h3>You got bombed!</h3>
+        <button id="new-game-button" type="button" onclick="reload()">
+          Start Again
+        </button>
+      </div>
+    </div>
+    <script type="text/javascript" src="./src/index.js"></script>
+  </body>
+</html>
