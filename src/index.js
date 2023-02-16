@@ -86,6 +86,8 @@ function addCellListeners(td, i, j) {
   td.addEventListener("mousedown", function (event) {
     if (!components.alive) {
       // if the game is over, don't do anything
+      document.getElementById("status").textContent = "😵";
+
       return;
     }
 
@@ -96,8 +98,10 @@ function addCellListeners(td, i, j) {
       rightClicked = true;
       if (cell.innerHTML !== "🚩") {
         cell.innerHTML = "🚩";
+        playFlag();
       } else {
         cell.innerHTML = "";
+        playFlag();
       }
 
       event.preventDefault(); // prevent the default context menu from showing
@@ -149,7 +153,8 @@ let explosion = new Audio("./src/assets/sound/explosion.mp3");
 // let dies = new Audio("./src/assets/sound/dies.mp3");
 let dies2 = new Audio("./src/assets/sound/ragdoll.mp3");
 let clicked = new Audio("./src/assets/sound/detonate.mp3");
-// Function to play the explosion sound effect
+let flag = new Audio("./src/assets/sound/pop.mp3");
+// Function to play the sound effects
 function playExplosion() {
   explosion.play();
 }
@@ -159,6 +164,30 @@ function playDies() {
 function playClicked() {
   clicked.play();
 }
+// this is called up with RightClick = 🚩
+function playFlag() {
+  flag.play();
+}
+
+// Add event listener for mousedown event
+document.addEventListener("mousedown", function (event) {
+  // If the game is still in progress, update the status element to show a scared face emoji
+  if (components.alive) {
+    document.getElementById("status").textContent = "😨";
+  }
+  // Otherwise, if the game is over, update the status element to show a dead face emoji
+  else if (!components.alive) {
+    document.getElementById("status").textContent = "😵";
+  }
+});
+
+// Add event listener for mouseup event
+document.addEventListener("mouseup", function (event) {
+  // If the game is still in progress, update the status element to show a happy face emoji
+  if (components.alive) {
+    document.getElementById("status").textContent = "😃";
+  }
+});
 
 function changeStatusToDead() {
   const statusSpan = document.getElementById("status");
