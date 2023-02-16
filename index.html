@@ -5,15 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./src/index.css" type="text/css" />
-    <title>MINESWEEPER</title>
+    <title>MINE-SWEEPER</title>
   </head>
   <body>
     <!-- https://iq.opengenus.org/minesweeper-game-using-js/ -->
     <div id="box">
-      <h2>MINESWEEPER!</h2>
+      <div class="info">
+        <span id="count_up_timer">00:00:00</span>
+        <span id="status">😃</span>
+      </div>
+      <!-- <h2>MINESWEEPER!</h2> -->
       <div id="field"></div>
       <div id="lost" style="display: none">
-        <h3>You got bombed!</h3>
+        <h3 class="lose_text">You died!</h3>
         <button id="new-game-button" type="button" onclick="reload()">
           Start Again
         </button>
