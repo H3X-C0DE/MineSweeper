@@ -2,7 +2,7 @@ let components = {
   num_of_rows: 12,
   num_of_cols: 24,
   num_of_bombs: 55,
-  bomb: "💣",
+  bomb: "☠️",
   alive: true,
   colors: {
     1: "blue",
@@ -81,21 +81,39 @@ function createTable() {
 }
 // This function adds event listeners to a given table cell for handling user interactions
 function addCellListeners(td, i, j) {
+  let cell = td;
+  let rightClicked = false;
   td.addEventListener("mousedown", function (event) {
     if (!components.alive) {
       // if the game is over, don't do anything
       return;
     }
+
     components.mousewhiches += event.which; // add the mouse button to the list of clicked buttons
+
     if (event.which === 3) {
-      // if the right mouse button is clicked, don't do anything
-      return;
+      // if the right mouse button is clicked, toggle the X flag
+      rightClicked = true;
+      if (cell.innerHTML !== "🚩") {
+        cell.innerHTML = "🚩";
+      } else {
+        cell.innerHTML = "";
+      }
+
+      event.preventDefault(); // prevent the default context menu from showing
+      event.stopPropagation(); // stop the event from propagating to other elements
+    } else {
+      rightClicked = false;
+      if (cell.flagged) {
+        // if the cell is flagged, don't do anything
+        return;
+      }
+      if (this.clicked) {
+        // if the cell is already clicked, don't do anything
+        return;
+      }
+      cell.style.backgroundColor = "lightGrey"; // change the cell's background color to light grey
     }
-    if (this.flagged) {
-      // if the cell is flagged, don't do anything
-      return;
-    }
-    this.style.backgroundColor = "lightGrey"; // change the cell's background color to light grey
   });
 
   td.addEventListener("mouseup", function (event) {
@@ -111,26 +129,9 @@ function addCellListeners(td, i, j) {
 
     components.mousewhiches = 0; // reset the list of clicked buttons
 
-    if (event.which === 3) {
-      // if the right mouse button is clicked
-      if (this.clicked) {
-        // if the cell is already clicked, don't do anything
-        return;
-      }
-      if (this.flagged) {
-        // if the cell is flagged, remove the flag and clear the text content
-        this.flagged = false;
-        this.textContent = "";
-      } else {
-        // if the cell is not flagged, add a flag and set the text content to the flag symbol
-        this.flagged = true;
-        this.textContent = components.flag;
-      }
-
-      event.preventDefault(); // prevent the default context menu from showing
-      event.stopPropagation(); // stop the event from propagating to other elements
-
-      return false; // return false to indicate that the event has been handled
+    if (rightClicked) {
+      rightClicked = false;
+      return false;
     } else {
       // if the left mouse button is clicked
       handleCellClick(this, i, j); // handle the click on the current cell
@@ -142,14 +143,27 @@ function addCellListeners(td, i, j) {
     return false;
   };
 }
-// Creating a new Audio object for the explosion sound effect
-let explosion = new Audio("./src/assets/sound/explosion.mp3");
 
+// Creating a new Audio object sound effects
+let explosion = new Audio("./src/assets/sound/explosion.mp3");
+// let dies = new Audio("./src/assets/sound/dies.mp3");
+let dies2 = new Audio("./src/assets/sound/ragdoll.mp3");
+let clicked = new Audio("./src/assets/sound/detonate.mp3");
 // Function to play the explosion sound effect
-function playSound() {
+function playExplosion() {
   explosion.play();
 }
+function playDies() {
+  dies2.play();
+}
+function playClicked() {
+  clicked.play();
+}
 
+function changeStatusToDead() {
+  const statusSpan = document.getElementById("status");
+  statusSpan.textContent = "😵";
+}
 // Function to handle click on a cell
 function handleCellClick(cell, i, j) {
   if (!components.alive) {
@@ -165,14 +179,16 @@ function handleCellClick(cell, i, j) {
 
   if (components.bombs[i][j]) {
     // If the clicked cell has a bomb, show the bomb and play the explosion sound effect
-    cell.style.color = "red";
+    cell.style.backgroundColor = "red";
     cell.textContent = components.bomb;
-    playSound();
-    // Game over as player clicked on a bomb cell
+    playDies();
+    playExplosion();
+    changeStatusToDead();
     gameOver();
   } else {
     // If the clicked cell doesn't have a bomb, show the number of adjacent bombs or clear the cell and adjacent cells
     cell.style.backgroundColor = "lightGrey";
+    playClicked();
     num_of_bombs = adjacentBombs(i, j);
     if (num_of_bombs) {
       // If there are adjacent bombs, show the number of bombs as text
@@ -183,12 +199,6 @@ function handleCellClick(cell, i, j) {
       clickAdjacentBombs(i, j);
     }
   }
-}
-
-// Function to create an Audio object from a source URL
-function audioElement(source) {
-  const element = new Audio(source);
-  return element;
 }
 
 // Function to get the number of adjacent bombs to a cell
@@ -270,3 +280,33 @@ window.addEventListener("load", function () {
   document.getElementById("lost").style.display = "none";
   startGame();
 });
+
+////////////////////////TIMER////////////////////////
+let timerVariable;
+let totalSeconds = 0;
+let timerStarted = false;
+
+document.getElementById("box").addEventListener("mousedown", function (event) {
+  if (!timerStarted && components.alive) {
+    timerVariable = setInterval(countUpTimer, 1000);
+    timerStarted = true;
+  }
+});
+
+function countUpTimer() {
+  ++totalSeconds;
+  let hour = Math.floor(totalSeconds / 3600);
+  let minute = Math.floor((totalSeconds - hour * 3600) / 60);
+  let seconds = totalSeconds - (hour * 3600 + minute * 60);
+  document.getElementById("count_up_timer").innerHTML =
+    hour + ":" + minute + ":" + seconds;
+
+  if (!components.alive) {
+    stopTimer();
+  }
+}
+
+function stopTimer() {
+  clearInterval(timerVariable);
+}
+////////////////////////TIMER-END////////////////////////
