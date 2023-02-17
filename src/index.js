@@ -1,7 +1,7 @@
 let components = {
-  num_of_rows: 12,
-  num_of_cols: 24,
-  num_of_bombs: 55,
+  num_of_rows: 3, // 12
+  num_of_cols: 3, // 24
+  num_of_bombs: 1, // 55
   bomb: "☠️",
   alive: true,
   colors: {
@@ -83,66 +83,66 @@ function createTable() {
 function addCellListeners(td, i, j) {
   let cell = td;
   let rightClicked = false;
+
   td.addEventListener("mousedown", function (event) {
     if (!components.alive) {
-      // if the game is over, don't do anything
       document.getElementById("status").textContent = "😵";
-
       return;
     }
 
-    components.mousewhiches += event.which; // add the mouse button to the list of clicked buttons
+    switch (event.which) {
+      case 1: // left mouse button
+        rightClicked = false;
+        if (cell.flagged || this.clicked) {
+          return;
+        }
+        cell.style.backgroundColor = "lightGrey";
+        break;
+      case 3: // right mouse button
+        rightClicked = true;
+        if (cell.innerHTML === "🚩") {
+          // if the cell already has a flag, remove it
+          cell.innerHTML = "";
+          playFlag();
+        } else if (
+          (cell.innerHTML !== "" && !isNaN(cell.innerHTML)) ||
+          this.clicked
+        ) {
+          // if the cell contains a number, don't place a flag
+          return;
+        } else {
+          // place the flag on the cell
+          cell.innerHTML = "🚩";
+          playFlag();
+        }
 
-    if (event.which === 3) {
-      // if the right mouse button is clicked, toggle the X flag
-      rightClicked = true;
-      if (cell.innerHTML !== "🚩") {
-        cell.innerHTML = "🚩";
-        playFlag();
-      } else {
-        cell.innerHTML = "";
-        playFlag();
-      }
-
-      event.preventDefault(); // prevent the default context menu from showing
-      event.stopPropagation(); // stop the event from propagating to other elements
-    } else {
-      rightClicked = false;
-      if (cell.flagged) {
-        // if the cell is flagged, don't do anything
-        return;
-      }
-      if (this.clicked) {
-        // if the cell is already clicked, don't do anything
-        return;
-      }
-      cell.style.backgroundColor = "lightGrey"; // change the cell's background color to light grey
+        event.preventDefault();
+        event.stopPropagation();
+        break;
+      default:
+        break;
     }
   });
 
   td.addEventListener("mouseup", function (event) {
     if (!components.alive) {
-      // if the game is over, don't do anything
       return;
     }
 
     if (this.clicked && components.mousewhiches == 4) {
-      // if both mouse buttons are clicked, perform a mass click on neighboring cells
       performMassClick(this, i, j);
     }
 
-    components.mousewhiches = 0; // reset the list of clicked buttons
+    components.mousewhiches = 0;
 
     if (rightClicked) {
       rightClicked = false;
       return false;
     } else {
-      // if the left mouse button is clicked
-      handleCellClick(this, i, j); // handle the click on the current cell
+      handleCellClick(this, i, j);
     }
   });
 
-  // This prevents the default context menu from showing when the right mouse button is clicked
   td.oncontextmenu = function () {
     return false;
   };
@@ -206,7 +206,7 @@ function handleCellClick(cell, i, j) {
   // Marking the cell as clicked
   cell.clicked = true;
 
-  if (components.bombs[i][j]) {
+  if (cell.textContent === components.bomb) {
     // If the clicked cell has a bomb, show the bomb and play the explosion sound effect
     cell.style.backgroundColor = "red";
     cell.textContent = components.bomb;
@@ -288,10 +288,38 @@ function clickAdjacentBombs(row, col) {
 
 // This function performs a mass click on all adjacent cells if the number of adjacent flags matches the number of adjacent bombs.
 function performMassClick(cell, row, col) {
-  if (adjacentFlags(row, col) === adjacentBombs(row, col)) {
-    clickAdjacentBombs(row, col);
+  if (adjacentFlags(cell, row, col) === adjacentBombs(cell, row, col)) {
+    clickAdjacentBombs(cell, row, col);
   }
 }
+
+let victory = new Audio("./src/assets/sound/kids-yeyye.mp3");
+function playVictory() {
+  victory.play();
+}
+// function checkForWin() {
+//   let num_of_clicked_cells = 0;
+
+//   // Iterate over all cells and count the number of clicked cells.
+//   for (let row = 0; row < components.num_of_rows; row++) {
+//     for (let col = 0; col < components.num_of_cols; col++) {
+//       let cell = document.getElementById(cellID(row, col));
+//       if (cell.clicked) {
+//         num_of_clicked_cells++;
+//       }
+//     }
+//   }
+
+//   // If the number of clicked cells equals the total number of cells minus the number of bombs, the player has won.
+//   if (
+//     num_of_clicked_cells ===
+//     components.num_of_rows * components.num_of_cols - components.num_of_bombs
+//   ) {
+//     alert("Congratulations, you have won!");
+//     playVictory();
+//     components.alive = false;
+//   }
+// }
 
 // This function sets the game status to "lost" and displays the "lost" message.
 function gameOver() {
@@ -327,6 +355,12 @@ function countUpTimer() {
   let hour = Math.floor(totalSeconds / 3600);
   let minute = Math.floor((totalSeconds - hour * 3600) / 60);
   let seconds = totalSeconds - (hour * 3600 + minute * 60);
+
+  // Add leading zeros
+  hour = hour < 10 ? "0" + hour : hour;
+  minute = minute < 10 ? "0" + minute : minute;
+  seconds = seconds < 10 ? "0" + seconds : seconds;
+
   document.getElementById("count_up_timer").innerHTML =
     hour + ":" + minute + ":" + seconds;
 
