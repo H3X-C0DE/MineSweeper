@@ -1,7 +1,7 @@
 let components = {
   num_of_rows: 12,
   num_of_cols: 24,
-  num_of_bombs: 55,
+  num_of_bombs: 55, //55
   bomb: "☠️",
   alive: true,
   colors: {
@@ -96,11 +96,16 @@ function addCellListeners(td, i, j) {
     if (event.which === 3) {
       // if the right mouse button is clicked, toggle the X flag
       rightClicked = true;
-      if (cell.innerHTML !== "🚩") {
-        cell.innerHTML = "🚩";
-        playFlag();
-      } else {
+      if (cell.innerHTML === "🚩") {
+        // if the cell already has a flag, remove it
         cell.innerHTML = "";
+        playFlag();
+      } else if (cell.innerHTML !== "" && !isNaN(cell.innerHTML)) {
+        // if the cell contains a number, don't place a flag
+        return;
+      } else {
+        // place the flag on the cell
+        cell.innerHTML = "🚩";
         playFlag();
       }
 
@@ -206,7 +211,7 @@ function handleCellClick(cell, i, j) {
   // Marking the cell as clicked
   cell.clicked = true;
 
-  if (components.bombs[i][j]) {
+  if (cell.textContent === components.bomb) {
     // If the clicked cell has a bomb, show the bomb and play the explosion sound effect
     cell.style.backgroundColor = "red";
     cell.textContent = components.bomb;
@@ -327,15 +332,21 @@ function countUpTimer() {
   let hour = Math.floor(totalSeconds / 3600);
   let minute = Math.floor((totalSeconds - hour * 3600) / 60);
   let seconds = totalSeconds - (hour * 3600 + minute * 60);
+
+  // Add leading zeros
+  hour = hour < 10 ? "0" + hour : hour;
+  minute = minute < 10 ? "0" + minute : minute;
+  seconds = seconds < 10 ? "0" + seconds : seconds;
+
   document.getElementById("count_up_timer").innerHTML =
     hour + ":" + minute + ":" + seconds;
 
   if (!components.alive) {
     stopTimer();
   }
+  function stopTimer() {
+    clearInterval(timerVariable);
+  }
 }
 
-function stopTimer() {
-  clearInterval(timerVariable);
-}
 ////////////////////////TIMER-END////////////////////////
