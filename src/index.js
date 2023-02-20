@@ -15,6 +15,7 @@ let components = {
     8: "grey",
   },
 };
+
 // This function starts the game by placing the bombs and creating the game board
 function startGame() {
   components.bombs = placeBombs(); // places the bombs on the game board
@@ -301,33 +302,36 @@ function performMassClick(cell, row, col) {
   }
 }
 
-function checkWin(clicked, bombs) {
-  const totalCells = components.num_of_rows * components.num_of_cols;
-  const remainingCells = totalCells - components.num_of_bombs;
-  if (clicked === remainingCells && bombs === components.num_of_bombs) {
-    console.log("win");
-    return true;
-  } else {
-    console.log("lose");
-    return false;
-  }
-}
 // This function sets the game status to "lost" and displays the "lost" message.
 function gameOver() {
   components.alive = false;
   document.getElementById("lost").style.display = "block";
+  document.getElementById("game_over_screen").style.display = "block";
 }
 
 // This function reloads the page.
 function reload() {
   window.location.reload();
 }
-
+function exit() {
+  window.close();
+}
 // When the page loads, hide the "lost" message and start the game.
 window.addEventListener("load", function () {
   document.getElementById("lost").style.display = "none";
+  document.getElementById("game_over_screen").style.display = "none";
   startGame();
 });
+
+// let timeLeft = 15;
+// const timer = setInterval(function () {
+//   timeLeft--;
+//   document.getElementById("timer").textContent = timeLeft;
+//   if (timeLeft === 0 && !components.alive) {
+//     clearInterval(timer);
+//     window.close();
+//   }
+// }, 1000);
 
 ////////////////////////TIMER////////////////////////
 let timerVariable;
