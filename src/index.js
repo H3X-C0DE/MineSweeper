@@ -1,6 +1,6 @@
 let components = {
-  num_of_rows: 12,
-  num_of_cols: 24,
+  num_of_rows: 12, //12
+  num_of_cols: 24, //24
   num_of_bombs: 55, //55
   bomb: "☠️",
   alive: true,
@@ -102,6 +102,9 @@ function addCellListeners(td, i, j) {
         playFlag();
       } else if (cell.innerHTML !== "" && !isNaN(cell.innerHTML)) {
         // if the cell contains a number, don't place a flag
+        return;
+        // if the cell is already opened don't do anything.
+      } else if (this.clicked) {
         return;
       } else {
         // place the flag on the cell
@@ -298,43 +301,17 @@ function performMassClick(cell, row, col) {
   }
 }
 
-// function checkForWin(board) {
-//   let num_of_bombs = board.num_of_bombs;
-//   let bombCount = 0;
-
-//   // Check rows for bomb cells
-//   for (let i = 0; i < board.num_of_rows; i++) {
-//     let rowBombCount = 0;
-//     for (let j = 0; j < board.num_of_cols; j++) {
-//       if (board[i][j] === board.bomb) {
-//         rowBombCount++;
-//       }
-//     }
-//     if (rowBombCount === num_of_bombs) {
-//       bombCount++;
-//     }
-//   }
-
-//   // Check columns for bomb cells
-//   for (let j = 0; j < board.num_of_cols; j++) {
-//     let colBombCount = 0;
-//     for (let i = 0; i < board.num_of_rows; i++) {
-//       if (board[i][j] === board.bomb) {
-//         colBombCount++;
-//       }
-//     }
-//     if (colBombCount === num_of_bombs) {
-//       bombCount++;
-//     }
-//   }
-
-//   // If all rows and columns have the right number of bomb cells, user wins
-//   if (bombCount === board.num_of_rows + board.num_of_cols) {
-//     console.log("Congratulations! You've won!");
-//     board.alive = false; // Set the alive flag to false to end the game
-//   }
-// }
-
+function checkWin(clicked, bombs) {
+  const totalCells = components.num_of_rows * components.num_of_cols;
+  const remainingCells = totalCells - components.num_of_bombs;
+  if (clicked === remainingCells && bombs === components.num_of_bombs) {
+    console.log("win");
+    return true;
+  } else {
+    console.log("lose");
+    return false;
+  }
+}
 // This function sets the game status to "lost" and displays the "lost" message.
 function gameOver() {
   components.alive = false;
