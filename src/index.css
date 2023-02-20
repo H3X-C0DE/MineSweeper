@@ -16,26 +16,31 @@ h3 {
 
 #box {
   text-align: center;
+  margin-top: 15px;
 }
 .info {
   display: flex;
   flex-direction: row;
   margin: 0 auto;
   background-color: #c3c3c3;
-  width: fit-content;
+  /* width: fit-content; */
   padding: 0.5em;
-  border-radius: 5px 5px 0 0;
+  /* border-radius: 5px 5px 0 0; */
+  justify-content: center;
 }
 #count_up_timer {
-  font-size: 2em;
+  font-size: 1em;
   background: white;
   padding: 0.3em;
   border-radius: 5px;
 }
 #status {
-  font-size: 2em;
-  padding: 0.3em;
+  font-size: 1.5em;
   border-radius: 5px;
+}
+#field {
+  width: fit-content;
+  margin: 0 auto;
 }
 #field table {
   border-collapse: collapse;
@@ -54,7 +59,7 @@ h3 {
   border: 1px solid black;
 }
 
-.loser-top {
+.window-top {
   display: flex;
   justify-content: space-between;
   background: rgb(76, 88, 228);
@@ -66,7 +71,7 @@ h3 {
   color: aliceblue;
   padding: 0.2em;
 }
-.loser-top div i {
+.window-top div i {
   color: rgb(30, 30, 30);
 }
 .loser-button {
