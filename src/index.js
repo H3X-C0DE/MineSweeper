@@ -88,7 +88,6 @@ function addCellListeners(td, i, j) {
     if (!components.alive) {
       // if the game is over, don't do anything
       document.getElementById("status").textContent = "😵";
-
       return;
     }
 
@@ -110,6 +109,7 @@ function addCellListeners(td, i, j) {
       } else {
         // place the flag on the cell
         cell.innerHTML = "🚩";
+        cell.style.backgroundColor = "#c3c3c3";
         playFlag();
       }
 
@@ -202,6 +202,7 @@ function changeStatusToDead() {
   const statusSpan = document.getElementById("status");
   statusSpan.textContent = "😵";
 }
+
 // Function to handle click on a cell
 function handleCellClick(cell, i, j) {
   if (!components.alive) {
@@ -216,7 +217,8 @@ function handleCellClick(cell, i, j) {
   cell.clicked = true;
 
   if (components.bombs[i][j]) {
-    // If the clicked cell has a bomb, show the bomb and play the explosion sound effect
+    // If the clicked cell has a bomb,
+    // show the bomb and play the explosion sound effect
     cell.style.backgroundColor = "red";
     cell.textContent = components.bomb;
     playDies();
@@ -224,16 +226,18 @@ function handleCellClick(cell, i, j) {
     changeStatusToDead();
     gameOver();
   } else {
-    // If the clicked cell doesn't have a bomb, show the number of adjacent bombs or clear the cell and adjacent cells
     cell.style.backgroundColor = "lightGrey";
     playClicked();
+    // If the clicked cell doesn't have a bomb,
+    //show the number of adjacent bombs or clear the cell and adjacent cells
     num_of_bombs = adjacentBombs(i, j);
     if (num_of_bombs) {
       // If there are adjacent bombs, show the number of bombs as text
       cell.style.color = components.colors[num_of_bombs];
       cell.textContent = num_of_bombs;
     } else {
-      // If there are no adjacent bombs, clear the cell and the adjacent cells
+      // If there are no adjacent bombs,
+      // clear the cell and the adjacent cells
       clickAdjacentBombs(i, j);
     }
   }
@@ -323,16 +327,6 @@ window.addEventListener("load", function () {
   startGame();
 });
 
-// let timeLeft = 15;
-// const timer = setInterval(function () {
-//   timeLeft--;
-//   document.getElementById("timer").textContent = timeLeft;
-//   if (timeLeft === 0 && !components.alive) {
-//     clearInterval(timer);
-//     window.close();
-//   }
-// }, 1000);
-
 ////////////////////////TIMER////////////////////////
 let timerVariable;
 let totalSeconds = 0;
@@ -368,3 +362,15 @@ function countUpTimer() {
 }
 
 ////////////////////////TIMER-END////////////////////////
+
+// ending screen countdown ////
+// let timeLeft = 15;
+// const timer = setInterval(function () {
+//   timeLeft--;
+//   document.getElementById("timer").textContent = timeLeft;
+//   if (timeLeft === 0 && !components.alive) {
+//     clearInterval(timer);
+//     // window.close();
+//     console.log(shutdown);
+//   }
+// }, 1000);

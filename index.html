@@ -14,11 +14,10 @@
   </head>
   <body>
     <!-- https://iq.opengenus.org/minesweeper-game-using-js/ -->
-    <div id="game_over_screen"></div>
     <div id="box">
-      <!-- <h2>MINESWEEPER!</h2> -->
+      <div id="game_over_screen"></div>
       <div id="field">
-        <div class="window-top">
+        <div class="window-top-main">
           <span>Minesweeper.exe</span>
           <div>
             <i class="fa-regular fa-window-minimize"></i>
@@ -29,10 +28,11 @@
         <div class="info">
           <span id="count_up_timer">00:00:00</span>
           <span id="status">😃</span>
+          <span id="count_up_points">000/233</span>
         </div>
       </div>
       <div id="lost" style="display: none">
-        <div class="window-top">
+        <div class="window-top-mini">
           <span>Minesweeper.exe</span>
           <div>
             <i class="fa-regular fa-window-minimize"></i>
@@ -41,8 +41,8 @@
           </div>
         </div>
         <h1 class="loser_title">Game Over!</h1>
-        <!-- <h2 class="loser_countdown">(<span id="timer">0</span>)</h2> -->
-        <h2 class="loser_countdown">Try Again?</h2>
+        <!-- <h2 class="loser_countdown"><span id="timer">0</span></h2> -->
+        <h3 class="loser_countdown">Try Again?</h3>
 
         <button class="loser-button" type="button" onclick="reload()">
           Yes
@@ -50,6 +50,7 @@
         <button class="loser-button" type="button" onclick="exit()">No</button>
       </div>
     </div>
+    <footer></footer>
     <script type="text/javascript" src="./src/index.js"></script>
     <script
       src="https://kit.fontawesome.com/fbcbc0cc53.js"

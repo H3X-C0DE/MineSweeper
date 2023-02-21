@@ -4,7 +4,9 @@ body {
   margin: 0;
   padding: 0;
   background-color: #626262;
-  background-image: url(./assets/image/pexels-photo-5186869.jpeg);
+  background-image: url(./assets/image/windowsBg.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
   font-family: "Roboto", sans-serif;
   /* font-family: "Asap", sans-serif; */
 }
@@ -27,8 +29,16 @@ h3 {
   padding: 0.5em;
   /* border-radius: 5px 5px 0 0; */
   justify-content: center;
+  border-left: 3px solid #a5a5a5;
+  border-right: 3px solid #505050;
 }
 #count_up_timer {
+  font-size: 1em;
+  background: white;
+  padding: 0.3em;
+  border-radius: 5px;
+}
+#count_up_points {
   font-size: 1em;
   background: white;
   padding: 0.3em;
@@ -41,6 +51,7 @@ h3 {
 #field {
   width: fit-content;
   margin: 0 auto;
+  position: relative;
 }
 #field table {
   border-collapse: collapse;
@@ -48,10 +59,15 @@ h3 {
   font-family: san-serif;
   font-weight: bold;
   display: inline-block;
+  border-bottom: 3px solid gray;
+  border-left: 3px solid #a5a5a5;
+  border-right: 3px solid #505050;
+  padding: 0.2em;
+  background-color: #c3c3c3;
 }
 
 #field table td {
-  background-color: rgb(195, 195, 195);
+  background-color: #c3c3c3;
   width: 35px;
   min-width: 35px;
   height: 35px;
@@ -59,20 +75,37 @@ h3 {
   border: 1px solid black;
 }
 
-.window-top {
+.window-top-main {
   display: flex;
   justify-content: space-between;
-  background: rgb(76, 88, 228);
-  background: linear-gradient(
-    90deg,
-    rgba(76, 88, 228, 1) 0%,
-    rgba(0, 140, 255, 1) 100%
-  );
+  background: #4c58e4;
+  background: linear-gradient(90deg, #323cad 0%, #008cff 100%);
   color: aliceblue;
   padding: 0.2em;
+  border-radius: 2px 2px 0 0;
+  /* border-bottom: 3px solid #4c58e4; */
+  border-left: 3px solid #5e61ba;
+  border-right: 3px solid #323cad;
 }
-.window-top div i {
+
+.window-top-mini {
+  display: flex;
+  justify-content: space-between;
+  background: #4c58e4;
+  background: linear-gradient(90deg, #323cad 0%, #008cff 100%);
+  color: aliceblue;
+  padding: 0.2em;
+  border-radius: 2px 2px 0 0;
+}
+.window-top-main div i,
+.window-top-mini div i {
   color: rgb(30, 30, 30);
+}
+#lost {
+  box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
+    rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  z-index: 999;
 }
 .loser-button {
   width: 100px;
@@ -127,7 +160,10 @@ h3 {
   height: 100vh;
   width: 100vw;
   position: absolute;
-  opacity: 0.5;
-  background-color: #a00202;
+  opacity: 0.6;
+  background-color: #000000;
   display: none;
+  position: absolute;
+  top: 0;
+  z-index: 998;
 }
