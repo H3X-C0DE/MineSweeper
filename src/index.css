@@ -25,7 +25,7 @@ h3 {
 
 #box {
   text-align: center;
-  /* margin-top: 15px; */
+  z-index: 2;
 }
 .info {
   display: flex;
@@ -90,7 +90,6 @@ h3 {
   color: aliceblue;
   padding: 0.2em;
   border-radius: 2px 2px 0 0;
-  /* border-bottom: 3px solid #4c58e4; */
   border-left: 3px solid #5e61ba;
   border-right: 3px solid #323cad;
 }
@@ -115,7 +114,6 @@ h3 {
   background-color: rgb(195, 195, 195);
   color: black;
   font-weight: bolder;
-  /* border-radius: 20px 20px 20px 20px; */
   position: relative;
   cursor: pointer;
   text-transform: uppercase;
@@ -173,4 +171,30 @@ h3 {
   position: absolute;
   top: 0;
   z-index: 998;
+}
+
+footer {
+  position: fixed;
+  height: 30px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin-bottom: 0px;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+}
+footer a,
+p {
+  padding: 0.5em;
+  text-decoration: none;
+  color: #414141;
+  padding: 0.5em;
+}
+.credit {
+  font-size: 0.7em;
+  line-height: 2.5em;
+}
+.fa-github {
+  font-size: 1em;
 }
