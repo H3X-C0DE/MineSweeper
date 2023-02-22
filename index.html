@@ -13,9 +13,8 @@
     <title>MINE-SWEEPER</title>
   </head>
   <body>
-    <!-- https://iq.opengenus.org/minesweeper-game-using-js/ -->
+    <div id="game_over_screen"></div>
     <div id="box">
-      <div id="game_over_screen"></div>
       <div id="field">
         <div class="window-top-main">
           <span>Minesweeper.exe</span>
@@ -31,7 +30,7 @@
           <span id="count_up_points">000/233</span>
         </div>
       </div>
-      <div id="lost" style="display: none">
+      <div id="lost" class="popup-container" style="display: none">
         <div class="window-top-mini">
           <span>Minesweeper.exe</span>
           <div>
@@ -40,14 +39,31 @@
             <i class="fa-regular fa-rectangle-xmark"></i>
           </div>
         </div>
-        <h1 class="loser_title">Game Over!</h1>
-        <!-- <h2 class="loser_countdown"><span id="timer">0</span></h2> -->
-        <h3 class="loser_countdown">Try Again?</h3>
+        <h1 class="popup_title">Game Over!</h1>
+        <!-- <h2 class="popup_countdown"><span id="timer">0</span></h2> -->
+        <h3 class="popup_countdown">Try Again?</h3>
 
-        <button class="loser-button" type="button" onclick="reload()">
+        <button class="popup-button" type="button" onclick="reload()">
           Yes
         </button>
-        <button class="loser-button" type="button" onclick="exit()">No</button>
+        <button class="popup-button" type="button" onclick="exit()">No</button>
+      </div>
+      <div id="victory" class="popup-container" style="display: none">
+        <div class="window-top-mini">
+          <span>Minesweeper.exe</span>
+          <div>
+            <i class="fa-regular fa-window-minimize"></i>
+            <i class="fa-regular fa-window-maximize"></i>
+            <i class="fa-regular fa-rectangle-xmark"></i>
+          </div>
+        </div>
+        <h1 class="popup_title">You Win!</h1>
+        <h3 class="popup_countdown">Play Again?</h3>
+
+        <button class="popup-button" type="button" onclick="reload()">
+          Yes
+        </button>
+        <button class="popup-button" type="button" onclick="exit()">No</button>
       </div>
     </div>
     <footer></footer>

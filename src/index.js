@@ -3,6 +3,7 @@ let components = {
   num_of_cols: 24, //24
   num_of_bombs: 55, //55
   bomb: "☠️",
+  cellsClicked: 0,
   alive: true,
   colors: {
     1: "blue",
@@ -80,6 +81,7 @@ function createTable() {
   }
   return table; // returns the complete game board table
 }
+
 // This function adds event listeners to a given table cell for handling user interactions
 function addCellListeners(td, i, j) {
   let cell = td;
@@ -87,7 +89,7 @@ function addCellListeners(td, i, j) {
   td.addEventListener("mousedown", function (event) {
     if (!components.alive) {
       // if the game is over, don't do anything
-      document.getElementById("status").textContent = "😵";
+      // document.getElementById("status").textContent = "😵";
       return;
     }
 
@@ -156,6 +158,7 @@ function addCellListeners(td, i, j) {
     return false;
   };
 }
+/////////////////////////////////////////////////////AUDIO FILES/////////////////////////////////////////////
 
 // Creating a new Audio object sound effects
 let explosion = new Audio("./src/assets/sound/explosion.mp3");
@@ -163,6 +166,7 @@ let explosion = new Audio("./src/assets/sound/explosion.mp3");
 let dies2 = new Audio("./src/assets/sound/ragdoll.mp3");
 let clicked = new Audio("./src/assets/sound/detonate.mp3");
 let flag = new Audio("./src/assets/sound/pop.mp3");
+let victory = new Audio("./src/assets/sound/kids-yeyye.mp3");
 // Function to play the sound effects
 function playExplosion() {
   explosion.play();
@@ -177,16 +181,15 @@ function playClicked() {
 function playFlag() {
   flag.play();
 }
-
+function playVictory() {
+  victory.play();
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Add event listener for mousedown event
 document.addEventListener("mousedown", function (event) {
   // If the game is still in progress, update the status element to show a scared face emoji
   if (components.alive) {
     document.getElementById("status").textContent = "😨";
-  }
-  // Otherwise, if the game is over, update the status element to show a dead face emoji
-  else if (!components.alive) {
-    document.getElementById("status").textContent = "😵";
   }
 });
 
@@ -202,6 +205,10 @@ function changeStatusToDead() {
   const statusSpan = document.getElementById("status");
   statusSpan.textContent = "😵";
 }
+function changeStatusToVictory() {
+  const statusSpan = document.getElementById("status");
+  statusSpan.textContent = "🥳";
+}
 
 // Function to handle click on a cell
 function handleCellClick(cell, i, j) {
@@ -209,7 +216,7 @@ function handleCellClick(cell, i, j) {
     return;
   }
 
-  if (cell.flagged) {
+  if (cell.flagged || cell.clicked) {
     return;
   }
 
@@ -223,7 +230,6 @@ function handleCellClick(cell, i, j) {
     cell.textContent = components.bomb;
     playDies();
     playExplosion();
-    changeStatusToDead();
     gameOver();
   } else {
     cell.style.backgroundColor = "lightGrey";
@@ -239,6 +245,16 @@ function handleCellClick(cell, i, j) {
       // If there are no adjacent bombs,
       // clear the cell and the adjacent cells
       clickAdjacentBombs(i, j);
+    }
+
+    // Increment the cell count and update the HTML element
+    components.cellsClicked++;
+    document.getElementById("count_up_points").textContent =
+      String(components.cellsClicked).padStart(3, "0") + "/233";
+    if (components.cellsClicked >= 233) {
+      gameWon();
+    } else {
+      return;
     }
   }
 }
@@ -308,11 +324,18 @@ function performMassClick(cell, row, col) {
 
 // This function sets the game status to "lost" and displays the "lost" message.
 function gameOver() {
+  changeStatusToDead();
   components.alive = false;
   document.getElementById("lost").style.display = "block";
   document.getElementById("game_over_screen").style.display = "block";
 }
-
+function gameWon() {
+  changeStatusToVictory();
+  playVictory();
+  components.alive = false;
+  document.getElementById("victory").style.display = "block";
+  console.log("victory");
+}
 // This function reloads the page.
 function reload() {
   window.location.reload();
