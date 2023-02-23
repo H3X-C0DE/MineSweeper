@@ -180,7 +180,6 @@ footer {
   left: 0px;
   right: 0px;
   margin-bottom: 0px;
-  z-index: 1;
   display: flex;
   justify-content: space-between;
 }
