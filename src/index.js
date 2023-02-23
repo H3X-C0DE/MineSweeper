@@ -6,20 +6,54 @@ let components = {
   cellsClicked: 0,
   alive: true,
   colors: {
-    1: "blue",
-    2: "green",
-    3: "red",
-    4: "purple",
-    5: "maroon",
-    6: "turquoise",
-    7: "black",
-    8: "grey",
+    1: "#0000FF",
+    2: "#008000",
+    3: "#FF0000",
+    4: "#800080",
+    5: "#800000",
+    6: "#FF1493",
+    7: "#008080",
+    8: "#000000",
   },
 };
+// This code sets the number of rows and columns of a grid depending on the width of the window.
+if (window.innerWidth < 400) {
+  // If the window width is less than 400, set 24 rows and 10 columns.
+  components.num_of_rows = 24;
+  components.num_of_cols = 10;
+
+  addBombs();
+} else if (window.innerWidth < 700) {
+  // If the window width is less than 700 but greater than or equal to 400, set 12 rows and 17 columns.
+  components.num_of_rows = 12;
+  components.num_of_cols = 17;
+  addBombs();
+} else {
+  components.num_of_rows = 12;
+  components.num_of_cols = 24;
+  addBombs();
+}
+// This function calculates the number of bombs in the grid based on the number of rows and columns.
+function addBombs(num_of_rows, num_of_cols) {
+  let num_of_bombs = Math.ceil(num_of_rows * num_of_cols * 0.23);
+  return num_of_bombs;
+}
+
+components.num_of_bombs = addBombs(
+  components.num_of_rows,
+  components.num_of_cols
+);
+// This sets the number of bombs in the grid by calling the addBombs function and passing
+function addBombs(num_of_rows, num_of_cols) {
+  let num_of_bombs = Math.ceil(num_of_rows * num_of_cols * 0.23);
+  return num_of_bombs;
+}
+// console.log(components);
+// console.log(components.num_of_bombs);
 
 // This function starts the game by placing the bombs and creating the game board
 function startGame() {
-  components.bombs = placeBombs(); // places the bombs on the game board
+  components.bomb = placeBombs(); // places the bombs on the game board
   document.getElementById("field").appendChild(createTable()); // creates the game board and appends it to the HTML DOM
 }
 
@@ -186,7 +220,7 @@ function playVictory() {
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Add event listener for mousedown event
-document.addEventListener("mousedown", function (event) {
+document.addEventListener("mousedown", function () {
   // If the game is still in progress, update the status element to show a scared face emoji
   if (components.alive) {
     document.getElementById("status").textContent = "😨";
@@ -194,7 +228,7 @@ document.addEventListener("mousedown", function (event) {
 });
 
 // Add event listener for mouseup event
-document.addEventListener("mouseup", function (event) {
+document.addEventListener("mouseup", function () {
   // If the game is still in progress, update the status element to show a happy face emoji
   if (components.alive) {
     document.getElementById("status").textContent = "😃";
@@ -223,11 +257,11 @@ function handleCellClick(cell, i, j) {
   // Marking the cell as clicked
   cell.clicked = true;
 
-  if (components.bombs[i][j]) {
+  if (components.bomb[i][j]) {
     // If the clicked cell has a bomb,
     // show the bomb and play the explosion sound effect
     cell.style.backgroundColor = "red";
-    cell.textContent = components.bomb;
+    cell.textContent = "☠️";
     playDies();
     playExplosion();
     gameOver();
@@ -246,12 +280,14 @@ function handleCellClick(cell, i, j) {
       // clear the cell and the adjacent cells
       clickAdjacentBombs(i, j);
     }
-
+    let winCon =
+      components.num_of_cols * components.num_of_rows - components.num_of_bombs;
     // Increment the cell count and update the HTML element
     components.cellsClicked++;
     document.getElementById("count_up_points").textContent =
-      String(components.cellsClicked).padStart(3, "0") + "/233";
-    if (components.cellsClicked >= 233) {
+      String(components.cellsClicked).padStart(3, "0") + `/${winCon}`;
+
+    if (components.cellsClicked >= winCon) {
       gameWon();
     } else {
       return;
@@ -266,30 +302,12 @@ function adjacentBombs(row, col) {
 
   for (i = -1; i < 2; i++) {
     for (j = -1; j < 2; j++) {
-      if (components.bombs[row + i] && components.bombs[row + i][col + j]) {
+      if (components.bomb[row + i] && components.bomb[row + i][col + j]) {
         num_of_bombs++;
       }
     }
   }
   return num_of_bombs;
-}
-// This function counts the number of adjacent cells that have been flagged as bombs.
-function adjacentFlags(row, col) {
-  let i, j, num_flags;
-  num_flags = 0;
-
-  // Iterate over adjacent cells.
-  for (i = -1; i < 2; i++) {
-    for (j = -1; j < 2; j++) {
-      cell = document.getElementById(cellID(row + i, col + j));
-
-      // If the adjacent cell exists and has been flagged as a bomb, increment the flag count.
-      if (!!cell && cell.flagged) {
-        num_flags++;
-      }
-    }
-  }
-  return num_flags;
 }
 
 // This function simulates a click on all adjacent cells that do not have a flag or have already been clicked.
@@ -327,7 +345,7 @@ function gameOver() {
   changeStatusToDead();
   components.alive = false;
   document.getElementById("lost").style.display = "block";
-  document.getElementById("game_over_screen").style.display = "block";
+  // document.getElementById("game_over_screen").style.display = "block";
 }
 function gameWon() {
   changeStatusToVictory();
@@ -346,7 +364,7 @@ function exit() {
 // When the page loads, hide the "lost" message and start the game.
 window.addEventListener("load", function () {
   document.getElementById("lost").style.display = "none";
-  document.getElementById("game_over_screen").style.display = "none";
+  // document.getElementById("game_over_screen").style.display = "none";
   startGame();
 });
 
