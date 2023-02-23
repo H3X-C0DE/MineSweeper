@@ -19,10 +19,7 @@ let components = {
 
 // This code sets the number of rows and columns of a grid depending on the width of the window.
 window.addEventListener("load", () => {
-  // (A) CHECK FOR MOBILE
   let isMobile = navigator.userAgent.toLowerCase().match(/mobile/i);
-
-  // (B) DO SOMETHING...
   if (isMobile || window.innerWidth < 400) {
     components.num_of_rows = 24;
     components.num_of_cols = 10;
@@ -62,6 +59,7 @@ function startGame() {
   components.bomb = placeBombs(); // places the bombs on the game board
   document.getElementById("field").appendChild(createTable()); // creates the game board and appends it to the HTML DOM
 }
+let bombsPlaced = []; // create an empty array to hold the positions of the bombs
 
 // This function generates an array that contains the positions of the bombs
 function placeBombs() {
@@ -93,9 +91,22 @@ function placeSingleBomb(bombs) {
   // if the column is empty, places the bomb in the column; otherwise, recursively calls the function to place the bomb in a new position
   if (!col) {
     row[ncol] = true;
+    bombsPlaced.push([nrow, ncol]); // add the row and column indices to the bombsPlaced array
     return;
   } else {
     placeSingleBomb(bombs);
+  }
+}
+function showBombs() {
+  for (let i = 0; i < bombsPlaced.length; i++) {
+    const [row, col] = bombsPlaced[i];
+    const cell = document.getElementById(cellID(row, col)); // get the cell element with the corresponding ID
+    if (cell.textContent === "🚩") {
+      cell.style.backgroundColor = "#90EE90";
+    } else {
+      cell.textContent = "💣";
+      cell.style.backgroundColor = "#D3D3D3";
+    }
   }
 }
 // This function returns a unique ID for a cell based on its row and column index
@@ -129,7 +140,6 @@ function addCellListeners(td, i, j) {
   td.addEventListener("mousedown", function (event) {
     if (!components.alive) {
       // if the game is over, don't do anything
-      // document.getElementById("status").textContent = "😵";
       return;
     }
 
@@ -167,7 +177,7 @@ function addCellListeners(td, i, j) {
         // if the cell is already clicked, don't do anything
         return;
       }
-      cell.style.backgroundColor = "lightGrey"; // change the cell's background color to light grey
+      cell.style.backgroundColor = "#D3D3D3"; // change the cell's background color to light grey
     }
   });
 
@@ -202,7 +212,6 @@ function addCellListeners(td, i, j) {
 
 // Creating a new Audio object sound effects
 let explosion = new Audio("./src/assets/sound/explosion.mp3");
-// let dies = new Audio("./src/assets/sound/dies.mp3");
 let dies2 = new Audio("./src/assets/sound/ragdoll.mp3");
 let clicked = new Audio("./src/assets/sound/detonate.mp3");
 let flag = new Audio("./src/assets/sound/pop.mp3");
@@ -266,6 +275,7 @@ function handleCellClick(cell, i, j) {
   if (i > components.bomb.length || components.bomb[i][j]) {
     // If the clicked cell has a bomb,
     // show the bomb and play the explosion sound effect
+    showBombs();
     cell.style.backgroundColor = "red";
     cell.textContent = "☠️";
     playDies();
