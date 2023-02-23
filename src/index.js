@@ -16,23 +16,29 @@ let components = {
     8: "#000000",
   },
 };
-// This code sets the number of rows and columns of a grid depending on the width of the window.
-if (window.innerWidth < 400) {
-  // If the window width is less than 400, set 24 rows and 10 columns.
-  components.num_of_rows = 24;
-  components.num_of_cols = 10;
 
-  addBombs();
-} else if (window.innerWidth < 700) {
-  // If the window width is less than 700 but greater than or equal to 400, set 12 rows and 17 columns.
-  components.num_of_rows = 12;
-  components.num_of_cols = 17;
-  addBombs();
-} else {
-  components.num_of_rows = 12;
-  components.num_of_cols = 24;
-  addBombs();
-}
+// This code sets the number of rows and columns of a grid depending on the width of the window.
+window.addEventListener("load", () => {
+  // (A) CHECK FOR MOBILE
+  let isMobile = navigator.userAgent.toLowerCase().match(/mobile/i);
+
+  // (B) DO SOMETHING...
+  if (isMobile || window.innerWidth < 400) {
+    components.num_of_rows = 24;
+    components.num_of_cols = 10;
+    addBombs();
+  } else if (isMobile || window.innerWidth < 700) {
+    // If the window width is less than 700 but greater than or equal to 400, set 12 rows and 17 columns.
+    components.num_of_rows = 12;
+    components.num_of_cols = 17;
+    addBombs();
+  } else {
+    components.num_of_rows = 12;
+    components.num_of_cols = 24;
+    addBombs();
+  }
+});
+
 // This function calculates the number of bombs in the grid based on the number of rows and columns.
 function addBombs(num_of_rows, num_of_cols) {
   let num_of_bombs = Math.ceil(num_of_rows * num_of_cols * 0.23);
