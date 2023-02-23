@@ -263,7 +263,7 @@ function handleCellClick(cell, i, j) {
   // Marking the cell as clicked
   cell.clicked = true;
 
-  if (components.bomb[i][j]) {
+  if (i > components.bomb.length || components.bomb[i][j]) {
     // If the clicked cell has a bomb,
     // show the bomb and play the explosion sound effect
     cell.style.backgroundColor = "red";
