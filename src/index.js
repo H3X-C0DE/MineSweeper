@@ -36,21 +36,29 @@ window.addEventListener("load", () => {
   }
 });
 
-// This function calculates the number of bombs in the grid based on the number of rows and columns.
-function addBombs(num_of_rows, num_of_cols) {
-  let num_of_bombs = Math.ceil(num_of_rows * num_of_cols * 0.23);
-  return num_of_bombs;
-}
-
 components.num_of_bombs = addBombs(
   components.num_of_rows,
   components.num_of_cols
 );
 // This sets the number of bombs in the grid by calling the addBombs function and passing
 function addBombs(num_of_rows, num_of_cols) {
-  let num_of_bombs = Math.ceil(num_of_rows * num_of_cols * 0.23);
+  let difficulty = document.querySelector(
+    'input[name="difficulty"]:checked'
+  ).value;
+  let multiplier;
+
+  if (difficulty === "easy") {
+    multiplier = 0.2;
+  } else if (difficulty === "normal") {
+    multiplier = 0.23;
+  } else {
+    multiplier = 0.27;
+  }
+
+  let num_of_bombs = Math.ceil(num_of_rows * num_of_cols * multiplier);
   return num_of_bombs;
 }
+
 // console.log(components);
 // console.log(components.num_of_bombs);
 
@@ -71,6 +79,68 @@ function placeBombs() {
     placeSingleBomb(rows);
   }
   return rows; // returns the array containing the positions of the bombs
+}
+
+function updateSize() {
+  let input = document.getElementById("sizeInput").value;
+  let num_of_cols = Math.ceil((Math.sqrt((input * 6) / 4) * 6) / 4);
+  let num_of_rows = Math.ceil((num_of_cols * 3) / 6);
+
+  components.num_of_cols = num_of_cols;
+  components.num_of_rows = num_of_rows;
+  components.num_of_bombs = addBombs(num_of_rows, num_of_cols);
+  bombsPlaced = [];
+  components.bomb = placeBombs();
+  document.getElementById("field").innerHTML = `
+  <div class="window-top-main">
+  <span>Minesweeper.exe</span>
+  <div>
+    <i class="fa-regular fa-window-minimize"></i>
+    <i class="fa-regular fa-window-maximize"></i>
+    <i class="fa-regular fa-rectangle-xmark"></i>
+  </div>
+</div>
+<div class="info">
+  <div class="resize">
+  <label
+  >Size
+  <input
+    type="text"
+    inputmode="numeric"
+    pattern="[0-9]+"
+    id="sizeInput"
+    value="200"
+/></label>
+    <button onclick="updateSize()">Update</button>
+  </div>
+  <div class="game-status">
+    <span id="count_up_timer">00:00:00</span>
+    <span id="status">😃</span>
+    <span id="count_up_points">000/000</span>
+  </div>
+  <div class="difficulty">
+    <div>
+      <input type="radio" id="easy" name="difficulty" value="easy" />
+      <label for="easy">Easy</label>
+    </div>
+    <div>
+      <input
+        type="radio"
+        id="normal"
+        name="difficulty"
+        value="normal"
+        checked
+      />
+      <label for="normal">Normal</label>
+    </div>
+    <div>
+      <input type="radio" id="hard" name="difficulty" value="hard" />
+      <label for="hard">Hard</label>
+    </div>
+  </div>
+</div>
+`;
+  document.getElementById("field").appendChild(createTable());
 }
 
 // This function places a single bomb on the game board

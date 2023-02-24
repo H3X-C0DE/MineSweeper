@@ -13,7 +13,6 @@
     <title>MINE-SWEEPER</title>
   </head>
   <body>
-    <!-- <div id="game_over_screen"></div> -->
     <div id="box">
       <div id="field">
         <div class="window-top-main">
@@ -25,46 +24,77 @@
           </div>
         </div>
         <div class="info">
-          <span id="count_up_timer">00:00:00</span>
-          <span id="status">😃</span>
-          <span id="count_up_points">000/000</span>
-        </div>
-      </div>
-      <div id="lost" class="popup-container" style="display: none">
-        <div class="window-top-mini">
-          <span>Minesweeper.exe</span>
-          <div>
-            <i class="fa-regular fa-window-minimize"></i>
-            <i class="fa-regular fa-window-maximize"></i>
-            <i class="fa-regular fa-rectangle-xmark"></i>
+          <div class="resize">
+            <label
+              >Size
+              <input
+                type="text"
+                inputmode="numeric"
+                pattern="[0-9]+"
+                id="sizeInput"
+                value="200"
+            /></label>
+            <button onclick="updateSize()">Update</button>
+          </div>
+          <div class="game-status">
+            <span id="count_up_timer">00:00:00</span>
+            <span id="status">😃</span>
+            <span id="count_up_points">000/000</span>
+          </div>
+          <div class="difficulty">
+            <div>
+              <input type="radio" id="easy" name="difficulty" value="easy" />
+              <label for="easy">Easy</label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                id="normal"
+                name="difficulty"
+                value="normal"
+                checked
+              />
+              <label for="normal">Normal</label>
+            </div>
+            <div>
+              <input type="radio" id="hard" name="difficulty" value="hard" />
+              <label for="hard">Hard</label>
+            </div>
           </div>
         </div>
-        <h1 class="popup_title">Game Over!</h1>
-        <!-- <h2 class="popup_countdown"><span id="timer">0</span></h2> -->
-        <h3 class="popup_countdown">Try Again?</h3>
-
-        <button class="popup-button" type="button" onclick="reload()">
-          Yes
-        </button>
-        <button class="popup-button" type="button" onclick="exit()">No</button>
       </div>
-      <div id="victory" class="popup-container" style="display: none">
-        <div class="window-top-mini">
-          <span>Minesweeper.exe</span>
-          <div>
-            <i class="fa-regular fa-window-minimize"></i>
-            <i class="fa-regular fa-window-maximize"></i>
-            <i class="fa-regular fa-rectangle-xmark"></i>
-          </div>
+    </div>
+
+    <div id="lost" class="popup-container" style="display: none">
+      <div class="window-top-mini">
+        <span>Minesweeper.exe</span>
+        <div>
+          <i class="fa-regular fa-window-minimize"></i>
+          <i class="fa-regular fa-window-maximize"></i>
+          <i class="fa-regular fa-rectangle-xmark"></i>
         </div>
-        <h1 class="popup_title">You Win!</h1>
-        <h3 class="popup_countdown">Play Again?</h3>
-
-        <button class="popup-button" type="button" onclick="reload()">
-          Yes
-        </button>
-        <button class="popup-button" type="button" onclick="exit()">No</button>
       </div>
+      <h1 class="popup_title">Game Over!</h1>
+      <!-- <h2 class="popup_countdown"><span id="timer">0</span></h2> -->
+      <h3 class="popup_countdown">Try Again?</h3>
+
+      <button class="popup-button" type="button" onclick="reload()">Yes</button>
+      <button class="popup-button" type="button" onclick="exit()">No</button>
+    </div>
+    <div id="victory" class="popup-container" style="display: none">
+      <div class="window-top-mini">
+        <span> Minesweeper.exe</span>
+        <div>
+          <i class="fa-regular fa-window-minimize"></i>
+          <i class="fa-regular fa-window-maximize"></i>
+          <i class="fa-regular fa-rectangle-xmark"></i>
+        </div>
+      </div>
+      <h1 class="popup_title">You Win!</h1>
+      <h3 class="popup_countdown">Play Again?</h3>
+
+      <button class="popup-button" type="button" onclick="reload()">Yes</button>
+      <button class="popup-button" type="button" onclick="exit()">No</button>
     </div>
     <footer>
       <a target="_blank" rel="noreferrer" href="https://github.com/H3X-C0DE">

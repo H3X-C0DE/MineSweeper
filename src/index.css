@@ -32,13 +32,38 @@ h3 {
   flex-direction: row;
   margin: 0 auto;
   background-color: #c3c3c3;
-  /* width: fit-content; */
   padding: 0.5em;
-  /* border-radius: 5px 5px 0 0; */
-  justify-content: center;
+  justify-content: space-between;
   border-left: 3px solid #a5a5a5;
   border-right: 3px solid #505050;
 }
+.info label input {
+  width: 4.5em;
+}
+.info .difficulty,
+.info .resize,
+.info .game-status {
+  line-height: 30px;
+}
+.difficulty {
+  display: flex;
+  flex-direction: row;
+}
+.difficulty div {
+  margin: 0 0.5em;
+}
+.resize button {
+  width: 100px;
+  height: 30px;
+  background-color: rgb(195, 195, 195);
+  color: black;
+  font-weight: bolder;
+  position: relative;
+  cursor: pointer;
+  text-transform: uppercase;
+  margin: 0 0 15px;
+}
+
 #count_up_timer {
   font-size: 1em;
   background: white;
@@ -71,6 +96,9 @@ h3 {
   border-right: 3px solid #505050;
   padding: 0.2em;
   background-color: #c3c3c3;
+  min-width: 450px;
+  display: grid;
+  justify-content: center;
 }
 
 #field table td {
@@ -93,7 +121,6 @@ h3 {
   border-left: 3px solid #5e61ba;
   border-right: 3px solid #323cad;
 }
-
 .window-top-mini {
   display: flex;
   justify-content: space-between;
@@ -129,9 +156,10 @@ h3 {
 .popup-container {
   font-family: "Asap", sans-serif;
   position: absolute;
+  text-align: center;
   left: 0;
   right: 0;
-  top: 30%;
+  top: 40vh;
   width: fit-content;
   margin-left: auto;
   margin-right: auto;
@@ -160,18 +188,6 @@ h3 {
   margin: 0.5em 0 0.5em;
   font-weight: 500;
 }
-
-/* #game_over_screen {
-  height: 100vh;
-  width: 100vw;
-  position: absolute;
-  opacity: 0.6;
-  background-color: #000000;
-  display: none;
-  position: absolute;
-  top: 0;
-  z-index: 3;
-} */
 
 footer {
   position: fixed;
