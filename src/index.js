@@ -1,6 +1,6 @@
 let components = {
   num_of_rows: 12, //12
-  num_of_cols: 24, //24
+  num_of_cols: 26, //26
   num_of_bombs: 55, //55
   bomb: "☠️",
   cellsClicked: 0,
@@ -22,11 +22,11 @@ window.addEventListener("load", () => {
   let isMobile = navigator.userAgent.toLowerCase().match(/mobile/i);
   if (isMobile || window.innerWidth < 600) {
     components.num_of_rows = 20;
-    components.num_of_cols = 10;
+    components.num_of_cols = 11;
     addBombs();
   } else {
     components.num_of_rows = 12;
-    components.num_of_cols = 24;
+    components.num_of_cols = 26;
     addBombs();
   }
 });
@@ -75,11 +75,44 @@ function placeBombs() {
   }
   return rows; // returns the array containing the positions of the bombs
 }
-
+function updateDif() {
+  reload();
+  startGame();
+}
 function updateSize() {
   let input = document.getElementById("sizeInput").value;
   let num_of_cols = Math.ceil((Math.sqrt((input * 6) / 4) * 6) / 4);
-  let num_of_rows = Math.ceil((num_of_cols * 3) / 6);
+  let num_of_rows = Math.ceil((num_of_cols * 3) / 7);
+  switch (true) {
+    case input >= 999:
+      alert(
+        `
+        ⣿⣿⣿⣿⣿⣿⠿⢋⣥⣴⣶⣶⣶⣬⣙⠻⠟⣋⣭⣭⣭⣭⡙⠻⣿⣿⣿⣿⣿
+        ⣿⣿⣿⣿⡿⢋⣴⣿⣿⠿⢟⣛⣛⣛⠿⢷⡹⣿⣿⣿⣿⣿⣿⣆⠹⣿⣿⣿⣿
+        ⣿⣿⣿⡿⢁⣾⣿⣿⣴⣿⣿⣿⣿⠿⠿⠷⠥⠱⣶⣶⣶⣶⡶⠮⠤⣌⡙⢿⣿
+        ⣿⡿⢛⡁⣾⣿⣿⣿⡿⢟⡫⢕⣪⡭⠥⢭⣭⣉⡂⣉⡒⣤⡭⡉⠩⣥⣰⠂⠹
+        ⡟⢠⣿⣱⣿⣿⣿⣏⣛⢲⣾⣿⠃⠄⠐⠈⣿⣿⣿⣿⣿⣿⠄⠁⠃⢸⣿⣿⡧
+        ⢠⣿⣿⣿⣿⣿⣿⣿⣿⣇⣊⠙⠳⠤⠤⠾⣟⠛⠍⣹⣛⣛⣢⣀⣠⣛⡯⢉⣰
+        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡶⠶⢒⣠⣼⣿⣿⣛⠻⠛⢛⣛⠉⣴⣿⣿
+        ⣿⣿⣿⣿⣿⣿⣿⡿⢛⡛⢿⣿⣿⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡈⢿⣿
+        ⣿⣿⣿⣿⣿⣿⣿⠸⣿⡻⢷⣍⣛⠻⠿⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⢇⡘⣿
+        ⣿⣿⣿⣿⣿⣿⣿⣷⣝⠻⠶⣬⣍⣛⣛⠓⠶⠶⠶⠤⠬⠭⠤⠶⠶⠞⠛⣡⣿
+        ⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣶⣬⣭⣍⣙⣛⣛⣛⠛⠛⠛⠿⠿⠿⠛⣠⣿⣿
+        ⣦⣈⠉⢛⠻⠿⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠛⣁⣴⣾⣿⣿⣿⣿
+        ⣿⣿⣿⣶⣮⣭⣁⣒⣒⣒⠂⠠⠬⠭⠭⠭⢀⣀⣠⣄⡘⠿⣿⣿⣿⣿⣿⣿⣿
+        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡈⢿⣿⣿⣿⣿⣿
+        𝕨𝕖 𝕓𝕠𝕥𝕙 𝕜𝕟𝕠𝕨 𝕪𝕠𝕦 𝕔𝕒𝕟'𝕥 𝕒𝕟𝕕 𝕨𝕠𝕟𝕥 𝕕𝕠 𝕥𝕙𝕚𝕤..
+        `
+      );
+      break;
+    case input <= 0:
+      alert(`
+      I mean how are you gonna play with 0 Cells to click..
+      whatever enjoy i guess.`);
+      break;
+    default:
+      break;
+  }
 
   components.num_of_cols = num_of_cols;
   components.num_of_rows = num_of_rows;
