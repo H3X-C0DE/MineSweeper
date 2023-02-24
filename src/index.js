@@ -21,7 +21,7 @@ let components = {
 window.addEventListener("load", () => {
   let isMobile = navigator.userAgent.toLowerCase().match(/mobile/i);
   if (isMobile || window.innerWidth < 400) {
-    components.num_of_rows = 24;
+    components.num_of_rows = 19;
     components.num_of_cols = 10;
     addBombs();
   } else if (isMobile || window.innerWidth < 700) {
@@ -389,7 +389,7 @@ let timerVariable;
 let totalSeconds = 0;
 let timerStarted = false;
 
-document.getElementById("box").addEventListener("mousedown", function (event) {
+document.getElementById("box").addEventListener("mousedown", function () {
   if (!timerStarted && components.alive) {
     timerVariable = setInterval(countUpTimer, 1000);
     timerStarted = true;
