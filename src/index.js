@@ -36,17 +36,17 @@ components.num_of_bombs = addBombs(
   components.num_of_cols
 );
 // This sets the number of bombs in the grid by calling the addBombs function and passing
-function addBombs(num_of_rows, num_of_cols) {
-  let difficulty = document.querySelector(
-    'input[name="difficulty"]:checked'
-  ).value;
-  let multiplier;
 
-  if (difficulty === "easy") {
-    multiplier = 0.2;
-  } else if (difficulty === "normal") {
+function addBombs(num_of_rows, num_of_cols) {
+  let difficultySelect = document.getElementById("difficulty-select");
+  let selectedDifficulty =
+    difficultySelect.options[difficultySelect.selectedIndex].value;
+
+  if (selectedDifficulty === "easy") {
+    multiplier = 0.18;
+  } else if (selectedDifficulty === "normal") {
     multiplier = 0.23;
-  } else {
+  } else if (selectedDifficulty === "hard") {
     multiplier = 0.27;
   }
 
@@ -130,15 +130,16 @@ function updateSize() {
 </div>
 <div class="info">
   <div class="resize">
-  <label
-  >Size
-  <input
-    type="text"
-    inputmode="numeric"
-    pattern="[0-9]+"
-    id="sizeInput"
-    value="200"
-/></label>
+    <label
+      >Size
+      <input
+        type="text"
+        inputmode="numeric"
+        pattern="[0-9]+"
+        id="sizeInput"
+        value="200"
+        maxlength="3"
+    /></label>
     <button onclick="updateSize()">Update</button>
   </div>
   <div class="game-status">
@@ -146,25 +147,13 @@ function updateSize() {
     <span id="status">😃</span>
     <span id="count_up_points">000/000</span>
   </div>
-  <div class="difficulty">
-    <div>
-      <input type="radio" id="easy" name="difficulty" value="easy" />
-      <label for="easy">Easy</label>
-    </div>
-    <div>
-      <input
-        type="radio"
-        id="normal"
-        name="difficulty"
-        value="normal"
-        checked
-      />
-      <label for="normal">Normal</label>
-    </div>
-    <div>
-      <input type="radio" id="hard" name="difficulty" value="hard" />
-      <label for="hard">Hard</label>
-    </div>
+  <div>
+    <label for="difficulty">Select Difficulty:</label>
+    <select id="difficulty-select">
+      <option value="easy">Easy</option>
+      <option value="normal" selected>Normal</option>
+      <option value="hard">Hard</option>
+    </select>
   </div>
 </div>
 `;
