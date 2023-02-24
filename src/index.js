@@ -20,14 +20,9 @@ let components = {
 // This code sets the number of rows and columns of a grid depending on the width of the window.
 window.addEventListener("load", () => {
   let isMobile = navigator.userAgent.toLowerCase().match(/mobile/i);
-  if (isMobile || window.innerWidth < 400) {
-    components.num_of_rows = 19;
+  if (isMobile || window.innerWidth < 600) {
+    components.num_of_rows = 20;
     components.num_of_cols = 10;
-    addBombs();
-  } else if (isMobile || window.innerWidth < 700) {
-    // If the window width is less than 700 but greater than or equal to 400, set 12 rows and 17 columns.
-    components.num_of_rows = 12;
-    components.num_of_cols = 17;
     addBombs();
   } else {
     components.num_of_rows = 12;

@@ -38,7 +38,7 @@ h3 {
   border-right: 3px solid #505050;
 }
 .info label input {
-  width: 4.5em;
+  width: 3em;
 }
 .info .difficulty,
 .info .resize,
@@ -48,10 +48,12 @@ h3 {
 .difficulty {
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
 .difficulty div {
   margin: 0 0.5em;
 }
+
 .resize button {
   width: 100px;
   height: 30px;
@@ -212,4 +214,16 @@ p {
 }
 .fa-github {
   font-size: 1em;
+}
+
+@media only screen and (max-width: 600px) {
+  .info .resize {
+    display: none;
+  }
+  .info {
+    flex-direction: column;
+  }
+  #field table {
+    min-width: 200px;
+  }
 }
