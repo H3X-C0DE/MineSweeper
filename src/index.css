@@ -38,7 +38,7 @@ h3 {
   border-right: 3px solid #505050;
 }
 .info label input {
-  width: 3em;
+  width: 2em;
 }
 .info .difficulty,
 .info .resize,
@@ -54,7 +54,8 @@ h3 {
   margin: 0 0.5em;
 }
 
-.resize button {
+.resize button,
+#mobilOnly-btn {
   width: 100px;
   height: 30px;
   background-color: rgb(195, 195, 195);
@@ -65,7 +66,9 @@ h3 {
   text-transform: uppercase;
   margin: 0 0 15px;
 }
-
+#mobilOnly-btn {
+  display: none;
+}
 #count_up_timer {
   font-size: 1em;
   background: white;
@@ -225,5 +228,12 @@ p {
   }
   #field table {
     min-width: 200px;
+  }
+  #mobilOnly-btn {
+    display: block;
+    margin: 0.5em auto;
+  }
+  .difficulty div {
+    line-height: 40px;
   }
 }
