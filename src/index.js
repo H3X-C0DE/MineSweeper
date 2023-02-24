@@ -147,7 +147,7 @@ function updateSize() {
     <span id="status">😃</span>
     <span id="count_up_points">000/000</span>
   </div>
-  <div>
+  <div class="difficulty">
     <label for="difficulty">Select Difficulty:</label>
     <select id="difficulty-select">
       <option value="easy">Easy</option>

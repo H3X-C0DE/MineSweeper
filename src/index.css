@@ -227,11 +227,4 @@ p {
   #field table {
     min-width: 200px;
   }
-  #mobilOnly-btn {
-    display: block;
-    margin: 0.5em auto;
-  }
-  .difficulty div {
-    line-height: 40px;
-  }
 }
