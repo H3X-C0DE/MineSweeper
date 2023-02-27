@@ -34,19 +34,14 @@
             </select>
           </div>
           <div class="game-status">
-            <div class="difficulty-mobile">
-              <label for="difficulty">Difficulty:</label>
-              <select id="difficulty-select">
-                <option value="easy">Easy</option>
-                <option value="normal">Normal</option>
-                <option value="hard">Hard</option>
-              </select>
+            <div>
+              <span id="count_up_timer">00:00:00</span>
+              <span id="status">😃</span>
+              <span id="count_up_points">000/000</span>
             </div>
-            <span id="count_up_timer">00:00:00</span>
-            <span id="status">😃</span>
-            <span id="count_up_points">000/000</span>
-            <button id="mobile-btn" onclick="reload()">Update</button>
           </div>
+          <button id="mobile-btn" onclick="reload()">Update</button>
+
           <div class="resize">
             <label
               >Size

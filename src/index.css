@@ -241,20 +241,16 @@ p {
     display: none;
   }
   .info {
-    flex-direction: column;
+    flex-direction: row;
   }
   #field table {
     min-width: 200px;
   }
-  .difficulty {
-    display: none;
-  }
+
   #difficulty-select {
     height: 2em;
   }
-  #desktop-btn {
-    display: none;
-  }
+
   #mobile-btn {
     display: inline-block;
     width: 80px;
@@ -267,7 +263,7 @@ p {
     text-transform: uppercase;
     margin: 0 0 15px;
   }
-  .difficulty-mobile {
-    display: inline-block;
+  .difficulty label {
+    display: none;
   }
 }

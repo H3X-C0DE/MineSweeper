@@ -82,7 +82,6 @@ function updateMobil() {
   document.getElementById("game-field").innerHTML = ` `;
   document.getElementById("game-field").appendChild(createTable());
 }
-
 function updateSize() {
   let input = document.getElementById("sizeInput").value;
   let num_of_cols = Math.ceil((Math.sqrt((input * 6) / 4) * 6) / 4);
