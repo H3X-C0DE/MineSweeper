@@ -45,15 +45,33 @@ h3 {
 .info .game-status {
   line-height: 30px;
 }
-.difficulty {
-  line-height: 40px;
+
+.difficulty button {
+  width: 70px;
+  height: 25px;
+  background-color: rgb(195, 195, 195);
+  color: black;
+  font-weight: bolder;
+  cursor: pointer;
+  display: none;
 }
 .difficulty div {
   margin: 0 0.5em;
 }
-
+#difficulty-select {
+  background-color: rgb(222, 222, 222);
+}
+#mobile-btn {
+  display: none;
+}
+.difficulty-mobile {
+  display: none;
+}
+.difficulty-mobile label {
+  display: none;
+}
 .resize button,
-#mobilOnly-btn {
+#mobile-btn {
   width: 100px;
   height: 30px;
   background-color: rgb(195, 195, 195);
@@ -64,9 +82,7 @@ h3 {
   text-transform: uppercase;
   margin: 0 0 15px;
 }
-#mobilOnly-btn {
-  display: none;
-}
+
 #count_up_timer {
   font-size: 1em;
   background: white;
@@ -229,5 +245,29 @@ p {
   }
   #field table {
     min-width: 200px;
+  }
+  .difficulty {
+    display: none;
+  }
+  #difficulty-select {
+    height: 2em;
+  }
+  #desktop-btn {
+    display: none;
+  }
+  #mobile-btn {
+    display: inline-block;
+    width: 80px;
+    height: 30px;
+    background-color: rgb(195, 195, 195);
+    color: black;
+    font-weight: bolder;
+    position: relative;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin: 0 0 15px;
+  }
+  .difficulty-mobile {
+    display: inline-block;
   }
 }
