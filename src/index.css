@@ -45,7 +45,9 @@ h3 {
 .info .game-status {
   line-height: 30px;
 }
-
+.game-status {
+  margin: 0 auto;
+}
 .difficulty button {
   width: 70px;
   height: 25px;
@@ -61,15 +63,7 @@ h3 {
 #difficulty-select {
   background-color: rgb(222, 222, 222);
 }
-#mobile-btn {
-  display: none;
-}
-.difficulty-mobile {
-  display: none;
-}
-.difficulty-mobile label {
-  display: none;
-}
+
 .resize button,
 #mobile-btn {
   width: 100px;
@@ -247,23 +241,7 @@ p {
     min-width: 200px;
   }
 
-  #difficulty-select {
-    height: 2em;
-  }
-
-  #mobile-btn {
-    display: inline-block;
-    width: 80px;
-    height: 30px;
-    background-color: rgb(195, 195, 195);
-    color: black;
-    font-weight: bolder;
-    position: relative;
-    cursor: pointer;
-    text-transform: uppercase;
-    margin: 0 0 15px;
-  }
-  .difficulty label {
+  .difficulty {
     display: none;
   }
 }
