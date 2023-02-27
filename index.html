@@ -24,18 +24,14 @@
           </div>
         </div>
         <div class="info">
-          <div class="resize">
-            <label
-              >Size
-              <input
-                type="text"
-                inputmode="numeric"
-                pattern="[0-9]+"
-                id="sizeInput"
-                value="200"
-                maxlength="3"
-            /></label>
-            <button onclick="updateSize()">Update</button>
+          <div class="difficulty">
+            <button onclick="reload()">Update</button>
+            <label for="difficulty">Difficulty:</label>
+            <select id="difficulty-select">
+              <option value="easy">Easy</option>
+              <option value="normal">Normal</option>
+              <option value="hard">Hard</option>
+            </select>
           </div>
           <div class="game-status">
             <div class="difficulty-mobile">
@@ -51,14 +47,18 @@
             <span id="count_up_points">000/000</span>
             <button id="mobile-btn" onclick="reload()">Update</button>
           </div>
-          <div class="difficulty">
-            <button onclick="reload()">Update</button>
-            <label for="difficulty">Difficulty:</label>
-            <select id="difficulty-select">
-              <option value="easy">Easy</option>
-              <option value="normal">Normal</option>
-              <option value="hard">Hard</option>
-            </select>
+          <div class="resize">
+            <label
+              >Size
+              <input
+                type="text"
+                inputmode="numeric"
+                pattern="[0-9]+"
+                id="sizeInput"
+                value="200"
+                maxlength="3"
+            /></label>
+            <button onclick="updateSize()">Update</button>
           </div>
         </div>
         <section id="game-field"></section>
