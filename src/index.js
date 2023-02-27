@@ -48,12 +48,10 @@ function addBombs(num_of_rows, num_of_cols) {
   } else if (selectedDifficulty === "hard") {
     multiplier = 0.27;
   }
+  console.log(selectedDifficulty);
   let num_of_bombs = Math.ceil(num_of_rows * num_of_cols * multiplier);
   return num_of_bombs;
 }
-
-// console.log(components);
-// console.log(components.num_of_bombs);
 
 // This function starts the game by placing the bombs and creating the game board
 function startGame() {
@@ -72,6 +70,17 @@ function placeBombs() {
     placeSingleBomb(rows);
   }
   return rows; // returns the array containing the positions of the bombs
+}
+function updateMobil() {
+  let num_of_cols = 12;
+  let num_of_rows = 26;
+  components.num_of_cols = num_of_cols;
+  components.num_of_rows = num_of_rows;
+  components.num_of_bombs = addBombs(num_of_rows, num_of_cols);
+  bombsPlaced = [];
+  components.bomb = placeBombs();
+  document.getElementById("game-field").innerHTML = ` `;
+  document.getElementById("game-field").appendChild(createTable());
 }
 
 function updateSize() {
@@ -97,6 +106,7 @@ function updateSize() {
         ⣦⣈⠉⢛⠻⠿⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠛⣁⣴⣾⣿⣿⣿⣿
         ⣿⣿⣿⣶⣮⣭⣁⣒⣒⣒⠂⠠⠬⠭⠭⠭⢀⣀⣠⣄⡘⠿⣿⣿⣿⣿⣿⣿⣿
         ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡈⢿⣿⣿⣿⣿⣿
+
         𝕨𝕖 𝕓𝕠𝕥𝕙 𝕜𝕟𝕠𝕨 𝕪𝕠𝕦 𝕔𝕒𝕟'𝕥 𝕒𝕟𝕕 𝕨𝕠𝕟𝕥 𝕕𝕠 𝕥𝕙𝕚𝕤..
         `
       );
@@ -104,7 +114,7 @@ function updateSize() {
     case input <= 0:
       alert(`
       I mean how are you gonna play with 0 Cells to click..
-      whatever enjoy i guess.`);
+      whatever enjoy I guess...`);
       break;
     default:
       break;
