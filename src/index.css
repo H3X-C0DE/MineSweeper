@@ -136,6 +136,17 @@ h3 {
   border-left: 3px solid #5e61ba;
   border-right: 3px solid #323cad;
 }
+.window-top-main div {
+  display: flex;
+}
+.window-top-main div i {
+  margin: 0 2px;
+  line-height: 20px;
+}
+.window-top-main div img {
+  width: 11%;
+  margin: 0 2px;
+}
 .window-top-mini {
   display: flex;
   justify-content: space-between;
