@@ -14,6 +14,7 @@ body {
   background-image: url(./assets/image/windowsBg.jpg);
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
   font-family: "Roboto", sans-serif;
   /* font-family: "Asap", sans-serif; */
 }
@@ -61,7 +62,7 @@ h3 {
   margin: 0 0.5em;
 }
 #difficulty-select {
-  background-color: rgb(222, 222, 222);
+  background-color: rgb(255, 255, 255);
   cursor: pointer;
 }
 
@@ -243,7 +244,9 @@ p {
 .hidden {
   display: none;
 }
-
+#setFlag {
+  display: none;
+}
 @media only screen and (max-width: 600px) {
   .info .resize {
     display: none;
@@ -257,5 +260,9 @@ p {
 
   .difficulty {
     display: none;
+  }
+  #setFlag {
+    display: inline-block;
+    padding: 0.5em;
   }
 }
