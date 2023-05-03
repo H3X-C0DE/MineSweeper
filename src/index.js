@@ -16,3 +16,13 @@ let components = {
     8: "#000000",
   },
 };
+
+function checkMobileDevice() {
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  const setFlagElement = document.getElementById("setFlag");
+  if (isMobile) {
+    setFlagElement.style.display = "block";
+  } else {
+    setFlagElement.style.display = "none";
+  }
+}
