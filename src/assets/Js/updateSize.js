@@ -1,6 +1,9 @@
 function updateSize() {
   // Get the input value for the size of the game field
   let input = document.getElementById("sizeInput").value;
+  let difficultySelect = document.getElementById("difficulty-select");
+  let selectedDifficulty =
+    difficultySelect.options[difficultySelect.selectedIndex].value;
 
   // Calculate the number of columns and rows based on the input value
   let num_of_cols = Math.ceil((Math.sqrt((input * 6) / 4) * 6) / 4);
@@ -24,8 +27,11 @@ function updateSize() {
       ⣦⣈⠉⢛⠻⠿⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠛⣁⣴⣾⣿⣿⣿⣿
       ⣿⣿⣿⣶⣮⣭⣁⣒⣒⣒⠂⠠⠬⠭⠭⠭⢀⣀⣠⣄⡘⠿⣿⣿⣿⣿⣿⣿⣿
       ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⡈⢿⣿⣿⣿⣿⣿
-      
-      𝕨𝕖 𝕓𝕠𝕥𝕙 𝕜𝕟𝕠𝕨 𝕪𝕠𝕦 𝕔𝕒𝕟'𝕥 𝕒𝕟𝕕 𝕨𝕠𝕟'𝕥 𝕕𝕠 𝕥𝕙𝕚𝕤..
+
+      We both know you won't do this on max cell amount.
+      And having it on ${selectedDifficulty} difficulty isn't gonna help you.
+      Only someone with to much time on their hands
+      would even consider doing this..
           `);
       break;
     case input <= 10 && input >= 1:
@@ -64,7 +70,8 @@ function updateSize() {
         ⣿⣿⣦⣭⣛⠻⠿⠿⢟⡻⠐⢃⠒⢥⣤⣄⢤⠠⢈⠂⣵⣶⣾⣿⣆⠄⠄⠄⠄⠄
         ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠐⠂⠴⢞⠒⠒⡸⠐⢬⢀⣿⣿⣿⣿⣿⣷⡄⠄⠄⠄
 
-        I mean how are you gonna play with 0 Cells to click...`);
+        I mean how are you gonna play with no Cells to click...
+        This is absolutely pointless.. PepeClown`);
       break;
     default:
       break;
