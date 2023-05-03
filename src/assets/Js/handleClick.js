@@ -1,12 +1,21 @@
 let flagMode = false;
-// toggles the flag mode on and off
+// toggles the flag mode on and offfunction toggleFlagMode() {
 function toggleFlagMode() {
   flagMode = !flagMode;
+  const setFlagElement = document.getElementById("setFlag");
   if (flagMode) {
-    document.getElementById("setFlag").innerHTML = "Disable Flag";
+    setFlagElement.innerHTML = "Disable Flag";
+    setFlagElement.style.backgroundColor = "#9e9e9e";
+    setFlagElement.style.borderStyle = "inset";
+    setFlagElement.style.borderColor = "#c0c0c0";
+    setFlagElement.style.color = "#ffffff";
     console.log(flagMode);
   } else {
-    document.getElementById("setFlag").innerHTML = "Enable Flag";
+    setFlagElement.innerHTML = "Enable Flag";
+    setFlagElement.style.backgroundColor = "";
+    setFlagElement.style.borderStyle = "";
+    setFlagElement.style.borderColor = "";
+    setFlagElement.style.color = "";
     console.log(flagMode);
   }
 }
