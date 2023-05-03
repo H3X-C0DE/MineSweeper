@@ -1,3 +1,16 @@
+let flagMode = false;
+// toggles the flag mode on and off
+function toggleFlagMode() {
+  flagMode = !flagMode;
+  if (flagMode) {
+    document.getElementById("setFlag").innerHTML = "Disable Flag";
+    console.log(flagMode);
+  } else {
+    document.getElementById("setFlag").innerHTML = "Enable Flag";
+    console.log(flagMode);
+  }
+}
+
 // Function to handle click on a cell
 function handleCellClick(cell, i, j) {
   if (!components.alive) {
@@ -5,6 +18,13 @@ function handleCellClick(cell, i, j) {
   }
 
   if (cell.flagged || cell.clicked) {
+    return;
+  }
+  // disables the click on the cell and replaces it with a flag
+  if (flagMode === true) {
+    cell.style.backgroundColor = "#c3c3c3";
+    cell.innerHTML = "🚩";
+    playFlag();
     return;
   }
 
